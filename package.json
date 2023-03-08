@@ -6,9 +6,8 @@
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-vercel": "vercel build",
     "vercel-dev": "vercel dev",
-    "vercel": "vercel"
+    "vercel": "vercel --prod"
   },
   "keywords": [],
   "author": "",
