@@ -1,9 +1,9 @@
-import { InteractionResponseType } from 'discord-interactions';
+import { InteractionResponseType } from 'discord-api-types/v10';
 
 export default {
   run: async function() {
     return {
-      type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+      type: InteractionResponseType.ChannelMessageWithSource,
       data: {
         content: "Hello, world!"
       }

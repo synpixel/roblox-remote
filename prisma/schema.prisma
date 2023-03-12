@@ -1,0 +1,22 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model RobloxUserAuth {
+  id       Int    @id @default(autoincrement())
+  robloxId Int    @unique
+  code     String @unique
+}
+
+model UserData {
+  id        Int    @id @default(autoincrement())
+  robloxId  Int    @unique
+  discordId String @unique
+}

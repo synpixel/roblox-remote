@@ -1,7 +1,10 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { InteractionResponseType, InteractionType, verifyKey } from 'discord-interactions';
+import { InteractionResponseType, InteractionType } from 'discord-api-types/v10';
+import { verifyKey } from 'discord-interactions';
 import type { Readable } from 'node:stream';
 import getCommands from '../src/getCommands';
+import optionsArrayToObject from '../src/optionsArrayToObject';
+import prismaClient from '../src/prismaClient';
 
 export const config = {
     api: {
@@ -35,16 +38,19 @@ export default async function interactions(
 
     const commands = await getCommands();
 
-    if (message.type === InteractionType.PING) {
+    if (message.type === InteractionType.Ping) {
         return response.status(200).send({
-            type: InteractionResponseType.PONG,
+            type: InteractionResponseType.Pong,
         })
     }
 
-    if (message.type === InteractionType.APPLICATION_COMMAND) {
+    if (message.type === InteractionType.ApplicationCommand) {
         if (commands[message.data.name]) {
-            const result = await commands[message.data.name].run();
-            console.log(result);
+            const result = await commands[message.data.name].run(
+                prismaClient,
+                message.member,
+                optionsArrayToObject(message.data.options)
+            );
             return response.status(200).send(result);
         }
     }
