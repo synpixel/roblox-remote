@@ -19,6 +19,7 @@
   "dependencies": {
     "@vercel/node": "^2.9.12",
     "discord-interactions": "^3.3.0",
+    "fs": "0.0.1-security",
     "vercel": "^28.16.15"
   }
 }

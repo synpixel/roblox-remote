@@ -1,6 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { InteractionResponseType, InteractionType, verifyKey } from 'discord-interactions';
 import type { Readable } from 'node:stream';
+import getCommands from '../src/getCommands';
 
 export const config = {
     api: {
@@ -26,13 +27,13 @@ export default async function interactions(
     const signature = request.headers["x-signature-ed25519"];
     const timestamp = request.headers["x-signature-timestamp"];
 
-    console.log(request);
-
     const isValidRequest = verifyKey(buf.toString("utf8"), signature as string, timestamp as string, process.env.PUBLIC_KEY as string);
 
     if (!isValidRequest) {
         return response.status(401).end("Bad request signature");
     }
+
+    const commands = await getCommands();
 
     if (message.type === InteractionType.PING) {
         return response.status(200).send({
@@ -41,12 +42,11 @@ export default async function interactions(
     }
 
     if (message.type === InteractionType.APPLICATION_COMMAND) {
-        return response.status(200).send({
-            type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-            data: {
-                content: "hello yes"
-            }
-        });
+        if (commands[message.data.name]) {
+            const result = await commands[message.data.name].run();
+            console.log(result);
+            return response.status(200).send(result);
+        }
     }
 
     response.end();
