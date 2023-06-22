@@ -26,8 +26,8 @@ export default async function handler(
 ) {
   const buf = await buffer(request);
 
-  const signature = request.headers["X-Signature-Ed25519"];
-  const timestamp = request.headers["X-Signature-Timestamp"];
+  const signature = request.headers["x-signature-ed25519"];
+  const timestamp = request.headers["x-signature-timestamp"];
   const rawBody = buf.toString("utf8");
 
   const isVerified = nacl.sign.detached.verify(
