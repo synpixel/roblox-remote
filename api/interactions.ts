@@ -3,10 +3,12 @@ import {
   InteractionResponseType,
   InteractionType,
 } from "discord-api-types/v10";
-import fs from "fs";
 import type { Readable } from "node:stream";
-import path from "path";
 import nacl from "tweetnacl";
+
+import login from "../src/commands/login";
+
+const commands = { login };
 
 const PUBLIC_KEY: string =
   "91d29c9a2d217ba9decd8c028ed56036fbf7429767676d55a89cfec1b255a991";
@@ -49,19 +51,15 @@ export default async function handler(
     });
   } else if (request.body.type == InteractionType.ApplicationCommand) {
     console.log("isApplicationCommand");
-    if (
-      fs.existsSync(
-        path.join(__dirname, "..", `src/commands/${request.body.name}.ts`)
-      )
-    ) {
+
+    const command = commands[request.body.name];
+
+    if (command) {
       console.log("doesExist");
-      import(`src/commands/${request.body.name}.ts`).then((command) => {
-        console.log("gotCommand");
-        command.default(request.body).then((content: string) => {
-          response.json({
-            type: InteractionResponseType.ChannelMessageWithSource,
-            data: { content },
-          });
+      command(request.body).then((content: string) => {
+        response.json({
+          type: InteractionResponseType.ChannelMessageWithSource,
+          data: { content },
         });
       });
     }
