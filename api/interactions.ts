@@ -5,6 +5,7 @@ import {
 } from "discord-api-types/v10";
 import fs from "fs";
 import type { Readable } from "node:stream";
+import path from "path";
 import nacl from "tweetnacl";
 
 const PUBLIC_KEY: string =
@@ -20,23 +21,25 @@ async function buffer(readable: Readable) {
   return Buffer.concat(chunks);
 }
 
-export default async function handler(
-  request: VercelRequest,
-  response: VercelResponse
-) {
+async function isVerified(request: VercelRequest) {
   const buf = await buffer(request);
 
   const signature = request.headers["x-signature-ed25519"];
   const timestamp = request.headers["x-signature-timestamp"];
   const rawBody = buf.toString("utf8");
 
-  const isVerified = nacl.sign.detached.verify(
+  return nacl.sign.detached.verify(
     Buffer.from(timestamp + rawBody),
     Buffer.from(signature as string, "hex"),
     Buffer.from(PUBLIC_KEY, "hex")
   );
+}
 
-  if (!isVerified) {
+export default async function handler(
+  request: VercelRequest,
+  response: VercelResponse
+) {
+  if (!(await isVerified(request))) {
     return response.status(401).end("invalid request signature");
   }
 
@@ -45,7 +48,11 @@ export default async function handler(
       type: InteractionResponseType.Pong,
     });
   } else if (request.body.type == InteractionType.ApplicationCommand) {
-    if (fs.existsSync(`src/commands/${request.body.name}.ts`)) {
+    if (
+      fs.existsSync(
+        path.join(__dirname, "..", `src/commands/${request.body.name}.ts`)
+      )
+    ) {
       import(`src/commands/${request.body.name}.ts`).then((command) => {
         command(request.body).then((content: string) => {
           response.json({
