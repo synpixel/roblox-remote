@@ -1,3 +1,3 @@
 export default async function () {
-  return "Hello, world!";
+  return { content: "Hello, world!", ephemeral: true };
 }

@@ -53,10 +53,10 @@ export default async function handler(
 
     if (command) {
       console.log("doesExist");
-      command(request.body).then((content: string) => {
+      command(request.body).then((data) => {
         response.json({
           type: InteractionResponseType.ChannelMessageWithSource,
-          data: { content },
+          data,
         });
       });
     }
