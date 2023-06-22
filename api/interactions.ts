@@ -31,7 +31,7 @@ export default async function handler(
   const rawBody = buf.toString("utf8");
 
   const isVerified = nacl.sign.detached.verify(
-    Buffer.from(timestamp + request.body),
+    Buffer.from(timestamp + rawBody),
     Buffer.from(signature as string, "hex"),
     Buffer.from(PUBLIC_KEY, "hex")
   );
