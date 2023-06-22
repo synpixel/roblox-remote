@@ -8,7 +8,7 @@ for (const file in fs.readdirSync(__dirname, { withFileTypes: true })) {
 
   if (fileName == "index") continue;
 
-  import(path.join(__dirname, file)).then((command) => {
+  import(path.join("./", file)).then((command) => {
     commands[fileName] = command.default;
   });
 }
