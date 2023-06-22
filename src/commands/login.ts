@@ -3,7 +3,10 @@ import { APIBaseInteraction, InteractionType } from "discord-api-types/v10";
 const authenticationSearchParams = new URLSearchParams();
 
 authenticationSearchParams.append("client_id", process.env.CLIENT_ID as string);
-authenticationSearchParams.append("redirect_uri", "https://google.com/");
+authenticationSearchParams.append(
+  "redirect_uri",
+  "https://roblox-remote.vercel.app/api/updateInfo"
+);
 authenticationSearchParams.append("scope", "openid profile");
 authenticationSearchParams.append("response_type", "code");
 
