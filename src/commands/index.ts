@@ -8,8 +8,9 @@ for (const file in fs.readdirSync(__dirname, { withFileTypes: true })) {
 
   if (fileName == "index") continue;
 
-  const command = await import(path.join(__dirname, file));
-  commands[fileName] = command.default;
+  import(path.join(__dirname, file)).then((command) => {
+    commands[fileName] = command.default;
+  });
 }
 
 export default commands;
