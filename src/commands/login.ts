@@ -6,6 +6,7 @@ export default async function (
   const authenticationSearchParams = new URLSearchParams();
 
   if (interaction.user) {
+    console.log("userExists");
     authenticationSearchParams.append("client_id", interaction.user.id);
     authenticationSearchParams.append("redirect_uri", "https://google.com/");
     authenticationSearchParams.append("scope", "openid profile");
