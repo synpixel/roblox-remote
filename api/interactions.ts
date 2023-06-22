@@ -56,6 +56,7 @@ export default async function handler(
     if (command) {
       console.log("doesExist");
       command(request.body).then((data) => {
+        console.log(data);
         response.json({
           type: InteractionResponseType.ChannelMessageWithSource,
           data,
