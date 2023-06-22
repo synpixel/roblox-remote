@@ -5,7 +5,9 @@ import {
 } from "discord-api-types/v10";
 import type { Readable } from "node:stream";
 import nacl from "tweetnacl";
-import commands from "../src/commands";
+
+import login from "../src/commands/login";
+const commands = { login };
 
 const PUBLIC_KEY: string =
   "91d29c9a2d217ba9decd8c028ed56036fbf7429767676d55a89cfec1b255a991";
