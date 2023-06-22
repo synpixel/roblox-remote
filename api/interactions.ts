@@ -5,7 +5,6 @@ import {
 } from "discord-api-types/v10";
 import fs from "fs";
 import type { Readable } from "node:stream";
-import path from "path";
 import nacl from "tweetnacl";
 
 const PUBLIC_KEY: string =
@@ -48,13 +47,9 @@ export default async function handler(
       type: InteractionResponseType.Pong,
     });
   } else if (request.body.type == InteractionType.ApplicationCommand) {
-    if (
-      fs.existsSync(
-        path.join(__dirname, "..", `src/commands/${request.body.name}.ts`)
-      )
-    ) {
+    if (fs.existsSync(`src/commands/${request.body.name}.ts`)) {
       import(`src/commands/${request.body.name}.ts`).then((command) => {
-        command(request.body).then((content: string) => {
+        command.default(request.body).then((content: string) => {
           response.json({
             type: InteractionResponseType.ChannelMessageWithSource,
             data: { content },
