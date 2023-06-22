@@ -4,6 +4,7 @@ export default async function handler(
   request: VercelRequest,
   response: VercelResponse
 ) {
-  console.log(request);
+  console.log(request.body);
+  console.log(request.headers);
   response.end();
 }
