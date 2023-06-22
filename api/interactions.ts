@@ -51,9 +51,8 @@ export default async function handler(
     });
   } else if (request.body.type == InteractionType.ApplicationCommand) {
     console.log("isApplicationCommand");
-    console.log(request.body);
 
-    const command = commands[request.body.name];
+    const command = commands[request.body.data.name];
 
     if (command) {
       console.log("doesExist");
