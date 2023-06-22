@@ -23,6 +23,9 @@ dependencies:
   postgres:
     specifier: ^3.3.5
     version: 3.3.5
+  tweetnacl:
+    specifier: ^1.0.3
+    version: 1.0.3
   vercel:
     specifier: ^30.2.3
     version: 30.2.3(@types/node@14.18.33)
@@ -6508,6 +6511,10 @@ packages:
 
   /tslib@2.5.3:
     resolution: {integrity: sha512-mSxlJJwl3BMEQCUNnxXBU9jP4JBktcEGhURcPR6VQVlnP0FdDEsIaz0C35dXNGLyRfrATNofF0F5p2KPxQgB+w==}
+    dev: false
+
+  /tweetnacl@1.0.3:
+    resolution: {integrity: sha512-6rt+RN7aOi1nGMyC4Xa5DdYiukl2UWCbcJft7YhxReBGQD7OAM8Pbxw6YMo4r2diNEA8FEmu32YOn9rhaiE5yw==}
     dev: false
 
   /type-check@0.3.2:
