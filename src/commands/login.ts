@@ -4,7 +4,7 @@ export default async function () {
     components: [
       {
         type: 2,
-        style: 1,
+        style: 5,
         label: "Authenticate",
         url: "https://google.com/",
       },
