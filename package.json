@@ -5,17 +5,20 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "drizzle-kit": "drizzle-kit"
+    "drizzle-kit": "drizzle-kit",
+    "generate": "drizzle-kit generate:pg"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@vercel/edge-config": "^0.2.1",
+    "@vercel/kv": "^0.2.2",
     "@vercel/node": "^2.15.2",
     "@vercel/postgres": "^0.4.0",
     "discord-api-types": "^0.37.46",
     "drizzle-orm": "^0.27.0",
+    "nanoid": "^4.0.2",
     "postgres": "^3.3.5",
     "tweetnacl": "^1.0.3",
     "vercel": "^30.2.3"

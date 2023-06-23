@@ -3,7 +3,7 @@ import { InferModel } from "drizzle-orm";
 import { integer, pgTable, serial } from "drizzle-orm/pg-core";
 import { drizzle } from "drizzle-orm/vercel-postgres";
 
-const users = pgTable("users", {
+export const users = pgTable("users", {
   id: serial("id").primaryKey(),
   discordId: integer("discord_id"),
   robloxId: integer("roblox_id"),
