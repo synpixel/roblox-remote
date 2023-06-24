@@ -33,6 +33,8 @@ export default async function handler(
     },
   });
 
+  console.log(token);
+
   if (token) {
     fetch("https://apis.roblox.com/oauth/v1/userinfo", {
       method: "POST",
