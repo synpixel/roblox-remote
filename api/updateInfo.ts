@@ -31,7 +31,7 @@ export default async function handler(
 
       response.redirect("https://roblox.com/");
     })
-    .catch(() => {
-      response.send("Internal server error");
+    .catch((err) => {
+      response.send(`Internal server error\n${err}`);
     });
 }
