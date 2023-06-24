@@ -17,7 +17,7 @@ export type Command = (
     InteractionType.ApplicationCommand,
     APIApplicationCommandInteractionData
   >,
-  options?: APIApplicationCommandOption[]
+  options?: { [key: string]: APIApplicationCommandOption }
 ) => Promise<APIInteractionResponseCallbackData>;
 
 export const commands: {
@@ -34,3 +34,13 @@ export const commands: {
   },
   kick,
 };
+
+export function parseOptions(options: APIApplicationCommandOption[]): {
+  [key: string]: APIApplicationCommandOption;
+} {
+  const optionsResult: { [key: string]: APIApplicationCommandOption } = {};
+  for (const option of options) {
+    optionsResult[option.name] = option;
+  }
+  return optionsResult;
+}

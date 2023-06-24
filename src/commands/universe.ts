@@ -10,7 +10,7 @@ export async function add(
     InteractionType.ApplicationCommand,
     APIApplicationCommandInteractionData
   >,
-  options?: APIApplicationCommandOption[]
+  options?: { [key: string]: APIApplicationCommandOption }
 ) {
   console.log(options);
   return {
@@ -23,7 +23,7 @@ export async function remove(
     InteractionType.ApplicationCommand,
     APIApplicationCommandInteractionData
   >,
-  options?: APIApplicationCommandOption[]
+  options?: { [key: string]: APIApplicationCommandOption }
 ) {
   console.log(options);
   return {

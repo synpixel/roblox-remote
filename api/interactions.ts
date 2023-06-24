@@ -9,7 +9,7 @@ import {
 } from "discord-api-types/v10";
 import type { Readable } from "node:stream";
 import nacl from "tweetnacl";
-import { commands } from "../src/commands/index.js";
+import { commands, parseOptions } from "../src/commands/index.js";
 
 const PUBLIC_KEY: string =
   "91d29c9a2d217ba9decd8c028ed56036fbf7429767676d55a89cfec1b255a991";
@@ -72,7 +72,7 @@ export default async function handler(
     }
 
     if (typeof command == "function") {
-      command(interaction, options).then(
+      command(interaction, parseOptions(options)).then(
         (data: APIInteractionResponseCallbackData) => {
           response.json({
             type: InteractionResponseType.ChannelMessageWithSource,
