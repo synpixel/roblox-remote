@@ -18,6 +18,10 @@ export async function insertUser(user: NewUser): Promise<User[]> {
   return await database.insert(users).values(user).returning();
 }
 
+export async function removeUserFromDiscordId(discordId: number) {
+  await database.delete(users).where(eq(users.discordId, BigInt(discordId)));
+}
+
 export async function getUserFromDiscordId(discordId: number): Promise<User[]> {
   return await database
     .select()

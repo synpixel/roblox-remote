@@ -66,7 +66,6 @@ export default async function handler(
 
     if (command) {
       command(interaction).then((data: APIInteractionResponseCallbackData) => {
-        console.log(data);
         response.json({
           type: InteractionResponseType.ChannelMessageWithSource,
           data,
