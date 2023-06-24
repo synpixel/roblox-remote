@@ -14,6 +14,6 @@ export type NewUser = InferModel<typeof users, "insert">;
 
 const database = drizzle(sql);
 
-export async function insertUser(user: NewUser): Promise<User> {
-  return database.insert(users).values(user).returning()[0];
+export async function insertUser(user: NewUser) {
+  await database.insert(users).values(user);
 }

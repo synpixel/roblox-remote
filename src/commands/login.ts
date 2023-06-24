@@ -1,5 +1,5 @@
 import { APIBaseInteraction, InteractionType } from "discord-api-types/v10";
-import { generateUserCode } from "../kv/userCodes";
+import { generateUserCode } from "../kv/userCodes.js";
 
 export default async function (
   interaction: APIBaseInteraction<InteractionType.ApplicationCommand, undefined>
