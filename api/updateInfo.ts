@@ -18,24 +18,43 @@ export default async function handler(
   const userId = await getUserId(request.query.state as string);
   await clearUserCode(request.query.state as string);
 
-  fetch("https://apis.roblox.com/oauth/v1/userinfo", {
+  const tokenSearchParams = new URLSearchParams();
+
+  tokenSearchParams.append("code", request.query.code as string);
+  tokenSearchParams.append("grant_type", "authorization_code");
+  tokenSearchParams.append("client_id", process.env.CLIENT_ID as string);
+  tokenSearchParams.append("client_secret", process.env.SECRET as string);
+
+  const token = await fetch("https://apis.roblox.com/oauth/v1/token", {
     method: "POST",
+    body: tokenSearchParams,
     headers: {
-      Authorization: `Bearer ${request.query.code}`,
+      ["Content-Type"]: "application/x-www-form-urlencoded",
     },
-  })
-    .then(async (data) => {
-      console.log(data);
+  });
 
-      const profile: Profile = await data.json();
-
-      console.log(profile);
-
-      insertUser({ discordId: userId, robloxId: parseInt(profile.sub, 10) });
-
-      response.redirect("https://roblox.com/");
+  if (token) {
+    fetch("https://apis.roblox.com/oauth/v1/userinfo", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${await token.text()}`,
+      },
     })
-    .catch((err) => {
-      response.send(`Internal server error\n${err}`);
-    });
+      .then(async (data) => {
+        console.log(data);
+
+        const profile: Profile = await data.json();
+
+        console.log(profile);
+
+        insertUser({ discordId: userId, robloxId: parseInt(profile.sub, 10) });
+
+        response.redirect("https://roblox.com/");
+      })
+      .catch((err) => {
+        response.send(`Internal server error\n${err}`);
+      });
+  } else {
+    response.send("Internal server error");
+  }
 }
