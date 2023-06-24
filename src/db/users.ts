@@ -1,11 +1,11 @@
 import { sql } from "@vercel/postgres";
 import { InferModel, eq } from "drizzle-orm";
-import { integer, pgTable, serial } from "drizzle-orm/pg-core";
+import { bigint, integer, pgTable, serial } from "drizzle-orm/pg-core";
 import { drizzle } from "drizzle-orm/vercel-postgres";
 
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
-  discordId: integer("discord_id"),
+  discordId: bigint("discord_id", { mode: "bigint" }),
   robloxId: integer("roblox_id"),
 });
 
@@ -22,5 +22,5 @@ export async function getUserFromDiscordId(discordId: number): Promise<User[]> {
   return await database
     .select()
     .from(users)
-    .where(eq(users.discordId, discordId));
+    .where(eq(users.discordId, BigInt(discordId)));
 }

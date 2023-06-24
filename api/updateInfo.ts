@@ -55,7 +55,10 @@ export default async function handler(
 
       console.log(profile);
 
-      insertUser({ discordId: userId, robloxId: parseInt(profile.sub, 10) });
+      insertUser({
+        discordId: BigInt(userId),
+        robloxId: parseInt(profile.sub, 10),
+      });
 
       response.redirect("https://roblox.com/");
     })
