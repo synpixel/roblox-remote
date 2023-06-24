@@ -43,7 +43,7 @@ export default async function handler(
   console.log(accessToken);
 
   fetch("https://apis.roblox.com/oauth/v1/userinfo", {
-    method: "POST",
+    method: "GET",
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
