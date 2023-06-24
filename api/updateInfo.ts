@@ -34,6 +34,7 @@ export default async function handler(
   });
 
   console.log(token);
+  console.log(await token.text());
 
   if (token) {
     fetch("https://apis.roblox.com/oauth/v1/userinfo", {
