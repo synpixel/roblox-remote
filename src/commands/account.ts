@@ -70,7 +70,7 @@ export async function unlink(
     return { content: "Not a member." };
   }
 
-  return await removeUserByDiscordId(parseInt(interaction.member.user.id, 10))
+  return removeUserByDiscordId(parseInt(interaction.member.user.id, 10))
     .then(() => {
       return {
         content: "Successfully logged out of your roblox account!",

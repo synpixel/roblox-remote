@@ -18,7 +18,7 @@ export async function add(
     };
   }
 
-  return await insertUniverse({
+  return insertUniverse({
     name: options.name,
     universeId: options.id,
     apiKey: options.api_key,
@@ -54,7 +54,7 @@ export async function remove(
     };
   }
 
-  return await removeUniverseByName(options.name)
+  return removeUniverseByName(options.name)
     .then(() => {
       return {
         content: `Successfully removed universe ${options.name}`,
