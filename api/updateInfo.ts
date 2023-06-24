@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { insertUser } from "../src/db/users";
-import { clearUserCode, getUserId } from "../src/kv/userCodes";
+import { insertUser } from "../src/db/users.js";
+import { clearUserCode, getUserId } from "../src/kv/userCodes.js";
 
 interface Profile {
   sub: string;

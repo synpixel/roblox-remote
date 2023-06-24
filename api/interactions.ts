@@ -6,7 +6,7 @@ import {
 import type { Readable } from "node:stream";
 import nacl from "tweetnacl";
 
-import login from "../src/commands/login";
+import login from "../src/commands/login.js";
 const commands = { login };
 
 const PUBLIC_KEY: string =
