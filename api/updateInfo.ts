@@ -33,7 +33,7 @@ export default async function handler(
     },
   });
 
-  if (!token || !token.json()) {
+  if (!token || !(await token.json())) {
     return response.send("Internal server error");
   }
 
