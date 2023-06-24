@@ -48,14 +48,14 @@ export default async function handler(
       Authorization: `Bearer ${accessToken}`,
     },
   })
-    .then(async (data) => {
-      console.log(data);
+    .then(async (userInfo) => {
+      console.log(userInfo);
 
-      const profile: Profile = await data.json();
+      const profile: Profile = await userInfo.json();
 
       console.log(profile);
 
-      insertUser({
+      await insertUser({
         discordId: BigInt(userId),
         robloxId: parseInt(profile.sub, 10),
       });
