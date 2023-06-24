@@ -57,7 +57,7 @@ export async function list(
     universes.push(`- ${universe.name}`);
   }
   return {
-    content: universes.join("\n"),
+    content: universes.length > 0 ? universes.join("\n") : "",
   };
 }
 
