@@ -15,6 +15,13 @@
       "when": 1687610865027,
       "tag": "0001_wide_stingray",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1687642954414,
+      "tag": "0002_wealthy_wallop",
+      "breakpoints": true
     }
   ]
 }

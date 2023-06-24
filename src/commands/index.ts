@@ -5,9 +5,11 @@ import {
   InteractionType,
 } from "discord-api-types/v10";
 
-import { link } from "./account/link.js";
-import { unlink } from "./account/unlink.js";
-import { view } from "./account/view.js";
+import { link, unlink, view } from "./account.js";
+
+import { add, remove } from "./universe.js";
+
+import { kick } from "./kick.js";
 
 export type Command = (
   interaction: APIBaseInteraction<
@@ -16,11 +18,17 @@ export type Command = (
   >
 ) => Promise<APIInteractionResponseCallbackData>;
 
-export const commands: { [key: string]: Command | { [key: string]: Command } } =
-  {
-    account: {
-      link,
-      view,
-      unlink,
-    },
-  };
+export const commands: {
+  [key: string]: Command | { [key: string]: Command };
+} = {
+  account: {
+    link,
+    view,
+    unlink,
+  },
+  universe: {
+    add,
+    remove,
+  },
+  kick,
+};
