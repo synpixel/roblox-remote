@@ -29,6 +29,10 @@ export async function add(
           content: `Successfully added universe ${universe.universeId} under the name "${universe.name}"`,
         };
       }
+
+      return {
+        content: "Failed to resolve universe.",
+      };
     })
     .catch(() => {
       return {
