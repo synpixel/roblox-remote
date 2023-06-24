@@ -12,7 +12,7 @@ export default async function (
     parseInt(interaction.member.user.id, 10)
   )) {
     return {
-      content: user.robloxId,
+      content: `https://www.roblox.com/users/${user.robloxId}/profile`,
     };
   }
 
