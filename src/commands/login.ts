@@ -12,6 +12,7 @@ export default async function (
 
   return {
     content: "Log into your Roblox account by pressing the following button:",
+    flags: 1 << 6,
     components: [
       {
         type: 1,
