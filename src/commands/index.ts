@@ -1,5 +1,6 @@
 import {
   APIApplicationCommandInteractionData,
+  APIApplicationCommandOption,
   APIBaseInteraction,
   APIInteractionResponseCallbackData,
   InteractionType,
@@ -15,7 +16,8 @@ export type Command = (
   interaction: APIBaseInteraction<
     InteractionType.ApplicationCommand,
     APIApplicationCommandInteractionData
-  >
+  >,
+  options?: APIApplicationCommandOption[]
 ) => Promise<APIInteractionResponseCallbackData>;
 
 export const commands: {

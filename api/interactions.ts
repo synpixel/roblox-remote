@@ -1,6 +1,7 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import {
   APIApplicationCommandInteractionData,
+  APIApplicationCommandOption,
   APIBaseInteraction,
   APIInteractionResponseCallbackData,
   InteractionResponseType,
@@ -63,18 +64,22 @@ export default async function handler(
     }
 
     let command = commands[interaction.data.name];
+    let options: APIApplicationCommandOption[] = [];
 
     if (Object.keys(interaction.data.options).length > 0) {
+      options = interaction.data.options[0].options;
       command = command[interaction.data.options[0].name];
     }
 
     if (typeof command == "function") {
-      command(interaction).then((data: APIInteractionResponseCallbackData) => {
-        response.json({
-          type: InteractionResponseType.ChannelMessageWithSource,
-          data,
-        });
-      });
+      command(interaction, options).then(
+        (data: APIInteractionResponseCallbackData) => {
+          response.json({
+            type: InteractionResponseType.ChannelMessageWithSource,
+            data,
+          });
+        }
+      );
     }
   }
 }
