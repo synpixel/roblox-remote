@@ -54,10 +54,13 @@ export async function list(
 ) {
   const universes: string[] = [];
   for (const universe of await listUniverses()) {
-    universes.push(`- ${universe.name}`);
+    universes.push(`- ${universe.name} (ID: ${universe.universeId})`);
   }
   return {
-    content: universes.length > 0 ? universes.join("\n") : "",
+    content:
+      universes.length > 0
+        ? universes.join("\n")
+        : "You didn't register any universe. Use the `/universe add` command to register one!",
   };
 }
 
