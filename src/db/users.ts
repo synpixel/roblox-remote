@@ -1,5 +1,5 @@
 import { sql } from "@vercel/postgres";
-import { InferModel } from "drizzle-orm";
+import { InferModel, eq } from "drizzle-orm";
 import { integer, pgTable, serial } from "drizzle-orm/pg-core";
 import { drizzle } from "drizzle-orm/vercel-postgres";
 
@@ -14,6 +14,13 @@ export type NewUser = InferModel<typeof users, "insert">;
 
 const database = drizzle(sql);
 
-export async function insertUser(user: NewUser) {
-  await database.insert(users).values(user);
+export async function insertUser(user: NewUser): Promise<User[]> {
+  return await database.insert(users).values(user).returning();
+}
+
+export async function getUserFromDiscordId(discordId: number): Promise<User[]> {
+  return await database
+    .select()
+    .from(users)
+    .where(eq(users.discordId, discordId));
 }
