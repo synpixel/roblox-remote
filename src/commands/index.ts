@@ -18,7 +18,9 @@ export type Command = (
 
 export const commands: { [key: string]: Command | { [key: string]: Command } } =
   {
-    link,
-    view,
-    unlink,
+    account: {
+      link,
+      view,
+      unlink,
+    },
   };
