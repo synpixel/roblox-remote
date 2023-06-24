@@ -7,6 +7,7 @@ import {
 
 import { getaccount } from "./getaccount.js";
 import { login } from "./login.js";
+import { logout } from "./logout.js";
 
 export type Command = (
   interaction: APIBaseInteraction<
@@ -15,4 +16,8 @@ export type Command = (
   >
 ) => Promise<APIInteractionResponseCallbackData>;
 
-export const commands: { [key: string]: Command } = { login, getaccount };
+export const commands: { [key: string]: Command } = {
+  login,
+  logout,
+  getaccount,
+};
