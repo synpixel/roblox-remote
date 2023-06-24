@@ -25,39 +25,42 @@ export default async function handler(
   tokenSearchParams.append("client_id", process.env.CLIENT_ID as string);
   tokenSearchParams.append("client_secret", process.env.SECRET as string);
 
-  const token = await fetch("https://apis.roblox.com/oauth/v1/token", {
+  fetch("https://apis.roblox.com/oauth/v1/token", {
     method: "POST",
     body: tokenSearchParams,
     headers: {
       ["Content-Type"]: "application/x-www-form-urlencoded",
     },
-  });
+  })
+    .then(async (token) => {
+      console.log(token);
+      console.log(await token.text());
 
-  console.log(token);
-  console.log(await token.text());
-
-  if (token) {
-    fetch("https://apis.roblox.com/oauth/v1/userinfo", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${await token.text()}`,
-      },
-    })
-      .then(async (data) => {
-        console.log(data);
-
-        const profile: Profile = await data.json();
-
-        console.log(profile);
-
-        insertUser({ discordId: userId, robloxId: parseInt(profile.sub, 10) });
-
-        response.redirect("https://roblox.com/");
+      fetch("https://apis.roblox.com/oauth/v1/userinfo", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${await token.text()}`,
+        },
       })
-      .catch((err) => {
-        response.send(`Internal server error\n${err}`);
-      });
-  } else {
-    response.send("Internal server error");
-  }
+        .then(async (data) => {
+          console.log(data);
+
+          const profile: Profile = await data.json();
+
+          console.log(profile);
+
+          insertUser({
+            discordId: userId,
+            robloxId: parseInt(profile.sub, 10),
+          });
+
+          response.redirect("https://roblox.com/");
+        })
+        .catch((err) => {
+          response.send(`Internal server error\n${err}`);
+        });
+    })
+    .catch(() => {
+      response.send("Internal server error");
+    });
 }
