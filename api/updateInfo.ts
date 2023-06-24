@@ -25,7 +25,11 @@ export default async function handler(
     },
   })
     .then(async (data) => {
+      console.log(data);
+
       const profile: Profile = await data.json();
+
+      console.log(profile);
 
       insertUser({ discordId: userId, robloxId: parseInt(profile.sub, 10) });
 
