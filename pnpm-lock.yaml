@@ -20,6 +20,9 @@ dependencies:
   discord-api-types:
     specifier: ^0.37.46
     version: 0.37.46
+  dotenv:
+    specifier: ^16.3.1
+    version: 16.3.1
   drizzle-orm:
     specifier: ^0.27.0
     version: 0.27.0(@vercel/postgres@0.4.0)(postgres@3.3.5)
