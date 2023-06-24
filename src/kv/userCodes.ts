@@ -1,4 +1,4 @@
-import kv from "@vercel/kv";
+import { kv } from "@vercel/kv";
 import { nanoid } from "nanoid";
 
 export async function generateUserCode(userId: string): Promise<string> {
