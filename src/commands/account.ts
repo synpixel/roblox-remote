@@ -3,7 +3,7 @@ import {
   APIBaseInteraction,
   InteractionType,
 } from "discord-api-types/v10";
-import { getUserFromDiscordId, removeUserFromDiscordId } from "../db/users.js";
+import { getUserFromDiscordId, removeUserByDiscordId } from "../db/users.js";
 import { generateUserCode } from "../kv/userCodes.js";
 
 export async function link(
@@ -70,7 +70,7 @@ export async function unlink(
     return { content: "Not a member." };
   }
 
-  return await removeUserFromDiscordId(parseInt(interaction.member.user.id, 10))
+  return await removeUserByDiscordId(parseInt(interaction.member.user.id, 10))
     .then(() => {
       return {
         content: "Successfully logged out of your roblox account!",

@@ -18,7 +18,7 @@ export async function insertUser(user: NewUser): Promise<User[]> {
   return await database.insert(users).values(user).returning();
 }
 
-export async function removeUserFromDiscordId(discordId: number) {
+export async function removeUserByDiscordId(discordId: number) {
   await database.delete(users).where(eq(users.discordId, BigInt(discordId)));
 }
 

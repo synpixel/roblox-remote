@@ -1,5 +1,5 @@
 import { sql } from "@vercel/postgres";
-import { InferModel } from "drizzle-orm";
+import { InferModel, eq } from "drizzle-orm";
 import { integer, pgTable, serial, text } from "drizzle-orm/pg-core";
 import { drizzle } from "drizzle-orm/vercel-postgres";
 
@@ -19,4 +19,8 @@ export async function insertUniverse(
   universe: NewUniverse
 ): Promise<Universe[]> {
   return await database.insert(universes).values(universe).returning();
+}
+
+export async function removeUniverseByName(name: string) {
+  await database.delete(universes).where(eq(universes.name, name));
 }
