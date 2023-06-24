@@ -1,8 +1,15 @@
-import { APIBaseInteraction, InteractionType } from "discord-api-types/v10";
+import {
+  APIApplicationCommandInteractionData,
+  APIBaseInteraction,
+  InteractionType,
+} from "discord-api-types/v10";
 import { generateUserCode } from "../kv/userCodes.js";
 
-export default async function (
-  interaction: APIBaseInteraction<InteractionType.ApplicationCommand, undefined>
+export async function login(
+  interaction: APIBaseInteraction<
+    InteractionType.ApplicationCommand,
+    APIApplicationCommandInteractionData
+  >
 ) {
   if (!interaction.member) {
     return { content: "Not a member." };

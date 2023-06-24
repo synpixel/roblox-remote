@@ -1,14 +1,14 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import {
+  APIApplicationCommandInteractionData,
+  APIBaseInteraction,
+  APIInteractionResponseCallbackData,
   InteractionResponseType,
   InteractionType,
 } from "discord-api-types/v10";
 import type { Readable } from "node:stream";
 import nacl from "tweetnacl";
-
-import getaccount from "../src/commands/getaccount.js";
-import login from "../src/commands/login.js";
-const commands = { login, getaccount };
+import { commands } from "../src/commands/index.js";
 
 const PUBLIC_KEY: string =
   "91d29c9a2d217ba9decd8c028ed56036fbf7429767676d55a89cfec1b255a991";
@@ -50,13 +50,22 @@ export default async function handler(
       type: InteractionResponseType.Pong,
     });
   } else if (request.body.type == InteractionType.ApplicationCommand) {
-    console.log("isApplicationCommand");
+    const interaction: APIBaseInteraction<
+      InteractionType.ApplicationCommand,
+      APIApplicationCommandInteractionData
+    > = request.body;
 
-    const command = commands[request.body.data.name];
+    if (!interaction.data) {
+      return {
+        type: InteractionResponseType.ChannelMessageWithSource,
+        data: { content: "Internal server error" },
+      };
+    }
+
+    const command = commands[interaction.data.name];
 
     if (command) {
-      console.log("doesExist");
-      command(request.body).then((data) => {
+      command(interaction).then((data: APIInteractionResponseCallbackData) => {
         console.log(data);
         response.json({
           type: InteractionResponseType.ChannelMessageWithSource,
