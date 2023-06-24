@@ -10,7 +10,7 @@ export async function add(
     APIApplicationCommandInteractionData
   >
 ) {
-  console.log(interaction.options);
+  console.log(interaction.data.options);
   return {
     content: "Hello, world!",
   };
@@ -22,7 +22,7 @@ export async function remove(
     APIApplicationCommandInteractionData
   >
 ) {
-  console.log(interaction.options);
+  console.log(interaction.data.options);
   return {
     content: "Hello, world!",
   };
