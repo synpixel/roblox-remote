@@ -15,7 +15,7 @@ export type NewUser = InferModel<typeof users, "insert">;
 const database = drizzle(sql);
 
 export async function insertUser(user: NewUser): Promise<User[]> {
-  return await database.insert(users).values(user).returning();
+  return database.insert(users).values(user).returning();
 }
 
 export async function removeUserByDiscordId(discordId: number) {
@@ -23,7 +23,7 @@ export async function removeUserByDiscordId(discordId: number) {
 }
 
 export async function getUserFromDiscordId(discordId: number): Promise<User[]> {
-  return await database
+  return database
     .select()
     .from(users)
     .where(eq(users.discordId, BigInt(discordId)));

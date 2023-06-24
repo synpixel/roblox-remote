@@ -18,9 +18,13 @@ const database = drizzle(sql);
 export async function insertUniverse(
   universe: NewUniverse
 ): Promise<Universe[]> {
-  return await database.insert(universes).values(universe).returning();
+  return database.insert(universes).values(universe).returning();
 }
 
 export async function removeUniverseByName(name: string) {
   await database.delete(universes).where(eq(universes.name, name));
+}
+
+export async function listUniverses(): Promise<Universe[]> {
+  return database.select().from(universes);
 }

@@ -3,7 +3,11 @@ import {
   APIBaseInteraction,
   InteractionType,
 } from "discord-api-types/v10";
-import { insertUniverse, removeUniverseByName } from "../db/universes.js";
+import {
+  insertUniverse,
+  listUniverses,
+  removeUniverseByName,
+} from "../db/universes.js";
 
 export async function add(
   interaction: APIBaseInteraction<
@@ -26,7 +30,7 @@ export async function add(
     .then((universes) => {
       for (const universe of universes) {
         return {
-          content: `Successfully added universe ${universe.universeId} under the name "${universe.name}"`,
+          content: `Successfully added universe ${universe.universeId} under the name "${universe.name}"!`,
         };
       }
 
@@ -39,6 +43,22 @@ export async function add(
         content: "Failed to add universe.",
       };
     });
+}
+
+export async function list(
+  interaction: APIBaseInteraction<
+    InteractionType.ApplicationCommand,
+    APIApplicationCommandInteractionData
+  >,
+  options?: { [key: string]: any }
+) {
+  const universes: string[] = [];
+  for (const universe of await listUniverses()) {
+    universes.push(`- ${universe.name}`);
+  }
+  return {
+    content: universes.join("\n"),
+  };
 }
 
 export async function remove(
@@ -57,7 +77,7 @@ export async function remove(
   return removeUniverseByName(options.name)
     .then(() => {
       return {
-        content: `Successfully removed universe ${options.name}`,
+        content: `Successfully removed universe ${options.name}!`,
       };
     })
     .catch(() => {

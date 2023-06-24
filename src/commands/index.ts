@@ -8,7 +8,7 @@ import {
 
 import { link, unlink, view } from "./account.js";
 
-import { add, remove } from "./universe.js";
+import { add, list, remove } from "./universe.js";
 
 import { kick } from "./kick.js";
 
@@ -30,6 +30,7 @@ export const commands: {
   },
   universe: {
     add,
+    list,
     remove,
   },
   kick,
