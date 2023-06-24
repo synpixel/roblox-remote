@@ -5,9 +5,9 @@ import {
   InteractionType,
 } from "discord-api-types/v10";
 
-import { getaccount } from "./getaccount.js";
-import { login } from "./login.js";
-import { logout } from "./logout.js";
+import { link } from "./account/link.js";
+import { unlink } from "./account/unlink.js";
+import { view } from "./account/view.js";
 
 export type Command = (
   interaction: APIBaseInteraction<
@@ -16,8 +16,9 @@ export type Command = (
   >
 ) => Promise<APIInteractionResponseCallbackData>;
 
-export const commands: { [key: string]: Command } = {
-  login,
-  logout,
-  getaccount,
-};
+export const commands: { [key: string]: Command | { [key: string]: Command } } =
+  {
+    link,
+    view,
+    unlink,
+  };

@@ -3,9 +3,9 @@ import {
   APIBaseInteraction,
   InteractionType,
 } from "discord-api-types/v10";
-import { generateUserCode } from "../kv/userCodes.js";
+import { generateUserCode } from "../../kv/userCodes.js";
 
-export async function login(
+export async function link(
   interaction: APIBaseInteraction<
     InteractionType.ApplicationCommand,
     APIApplicationCommandInteractionData

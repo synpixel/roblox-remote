@@ -3,9 +3,9 @@ import {
   APIBaseInteraction,
   InteractionType,
 } from "discord-api-types/v10";
-import { getUserFromDiscordId } from "../db/users.js";
+import { getUserFromDiscordId } from "../../db/users.js";
 
-export async function getaccount(
+export async function view(
   interaction: APIBaseInteraction<
     InteractionType.ApplicationCommand,
     APIApplicationCommandInteractionData

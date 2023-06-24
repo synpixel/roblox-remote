@@ -55,9 +55,6 @@ export default async function handler(
       APIApplicationCommandInteractionData
     > = request.body;
 
-    console.log(interaction);
-    console.log(interaction.data.options);
-
     if (!interaction.data) {
       return {
         type: InteractionResponseType.ChannelMessageWithSource,
@@ -65,9 +62,13 @@ export default async function handler(
       };
     }
 
-    const command = commands[interaction.data.name];
+    let command = commands[interaction.data.name];
 
-    if (command) {
+    if (Object.keys(interaction.data.options).length > 0) {
+      command = command[interaction.data.options[0].name];
+    }
+
+    if (typeof command == "function") {
       command(interaction).then((data: APIInteractionResponseCallbackData) => {
         response.json({
           type: InteractionResponseType.ChannelMessageWithSource,

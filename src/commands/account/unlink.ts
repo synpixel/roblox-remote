@@ -3,9 +3,9 @@ import {
   APIBaseInteraction,
   InteractionType,
 } from "discord-api-types/v10";
-import { removeUserFromDiscordId } from "../db/users.js";
+import { removeUserFromDiscordId } from "../../db/users.js";
 
-export async function logout(
+export async function unlink(
   interaction: APIBaseInteraction<
     InteractionType.ApplicationCommand,
     APIApplicationCommandInteractionData
