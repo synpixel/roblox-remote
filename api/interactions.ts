@@ -56,6 +56,7 @@ export default async function handler(
     > = request.body;
 
     console.log(interaction);
+    console.log(interaction.data.options);
 
     if (!interaction.data) {
       return {
