@@ -55,6 +55,8 @@ export default async function handler(
       APIApplicationCommandInteractionData
     > = request.body;
 
+    console.log(interaction);
+
     if (!interaction.data) {
       return {
         type: InteractionResponseType.ChannelMessageWithSource,
